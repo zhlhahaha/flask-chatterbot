@@ -25,5 +25,11 @@ english_bot = ChatBot("English Bot",
 ```
 ... where `mongodb_name` is the name of the database you wish to connect to and `mongodb_uri` is the URI of a remote instance of MongoDB.
 
+## Docker
+docker build -t chatbot:v1 .
+docker run -d -p 5000:5000 --rm chatbot:v1 python app.py
+curl localhost:5000/get?msg=hello
+
+
 ## License
 This source is free to use, but ChatterBot does have a license which still applies and can be found on the [LICENSE](https://github.com/gunthercox/ChatterBot/blob/master/LICENSE) page.

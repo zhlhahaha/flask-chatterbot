@@ -1,0 +1,7 @@
+13c13,16
+<         self.nlp = spacy.load(self.language.ISO_639_1.lower())
+---
+>         if self.language.ISO_639_1.lower() == 'en':
+>             self.nlp = spacy.load('en_core_web_sm')
+>         else:
+>             self.nlp = spacy.load(self.language.ISO_639_1.lower())
