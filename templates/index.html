@@ -5,11 +5,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
-    <h1>Flask Chatterbot Example</h1>
-    <h3>A web implementation of <a href="https://github.com/gunthercox/ChatterBot">ChatterBot</a> using Flask.</h3>
+    <h1>Chatterbot Example</h1>
+    <div class="select-bg" id="runtimebox">
+      <select class="select-green" id="runtime">
+        <option value="runc">--Please choose a runtime--</option>
+        <option value="runc">runc</option>
+        <option value="kata">Kata</option>
+        <option value="gvisor">gVisor</option>
+      </select>
+    </div>
     <div>
       <div id="chatbox">
-        <p class="botText"><span>Hi! I'm Chatterbot.</span></p>
+        <p class="botText"> <img class="robotlogo" src="/static/robot.svg"></img> <span>Hi! I'm Chatterbot.</span></p>
       </div>
       <div id="userInput">
         <input id="textInput" type="text" name="msg" placeholder="Message">
@@ -18,12 +25,12 @@
       <script>
         function getBotResponse() {
           var rawText = $("#textInput").val();
-          var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+          var userHtml = '<p class="userText"><img class="userlogo" src="/static/user.png"/><span>' + rawText + '</span></p>';
           $("#textInput").val("");
           $("#chatbox").append(userHtml);
           document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
-          $.get("/get", { msg: rawText }).done(function(data) {
-            var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+          $.get("http://chatterbot-"+document.getElementById("runtime").value+".default.knative.example.com/get", { msg: rawText }).done(function(data) {
+            var botHtml = '<p class="botText"><img class="robotlogo" src="/static/robot.svg"/><span>' + data + '</span></p>';
             $("#chatbox").append(botHtml);
             document.getElementById('userInput').scrollIntoView({block: 'start', behavior: 'smooth'});
           });
